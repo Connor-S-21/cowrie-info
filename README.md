@@ -1,2 +1,9 @@
+add table of contents
 # Cowrie
 [Cowrie](https://github.com/cowrie/cowrie) is a honeypot, meaning it's a program that pretends to be a vulnerable SSH server in order to attract attackers/automated bots. It's great for learning about attacker behaviors or patterns because it logs every action and even captures anything they attempt to install onto your 'file system'.
+# Setup
+To use Cowrie you'll want to setup a Linux server. Ideally a virtual private server instead of one you run yourself. Keep in mind that Cowrie is attracting real attacks, so it's ideal to keep the server you're running Cowrie on away from your actual network and devices.
+If you do use a VPS, make sure that you're allowed to run honeypots such as Cowrie on their servers. You can check their terms or use or even email support to find out. I use a rented Linode server, I emailed support and they said as long as I'm not doing the attacking I can run a honeypot.
+Cowrie only passively collects data and does not scan the internet or retailiate towards attackers in any way, so you won't get in trouble using it on most providers, but it's best to check in case.
+You can get away with using a budget server if all you're planning to do is run Cowrie, 1 or 2 GB of RAM and 1-2 CPU cores will suffice as long as you're running a server distribution of Linux on it.
+I highly recommend changing the Cowrie port to 22 in order to capture the most traffic. **Make sure that you switch your actual SSH port to something else before setting Cowrie to port 22.**
