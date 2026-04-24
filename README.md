@@ -1,6 +1,18 @@
 add table of contents
 # Cowrie
 [Cowrie](https://github.com/cowrie/cowrie) is a honeypot, meaning it's a program that pretends to be a vulnerable SSH server in order to attract attackers/automated bots. It's great for learning about attacker behaviors or patterns because it logs every action and even captures anything they attempt to install onto your 'file system'.
+
+# Safety
+Keep in mind that Cowrie is attracting **real attacks.**
+
+I highly recommend you only use a virtual private server to keep the attackers as far from your actual network and devices as possible.
+
+Use [SSH keys](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server), [fail2ban](https://github.com/fail2ban/fail2ban), and/or use SSH over [Tailscale](https://tailscale.com/) to reduce or eliminate the chances of attackers breaking into your real server.
+
+### DO NOT RUN DOWNLOADED FILES ON YOUR REAL SYSTEM
+
+
+
 # Setup
 To use Cowrie you'll want to setup a Linux server. Ideally a virtual private server instead of one you run yourself. Keep in mind that Cowrie is attracting real attacks, so it's ideal to keep the server you're running Cowrie on away from your actual network and devices.
 
