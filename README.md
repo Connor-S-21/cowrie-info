@@ -39,5 +39,8 @@ Prerequisates
 # After Setup
 Cowrie should now be up and running. 
 To test if it's working properly, you can attempt to SSH into your server using the port you assigned to Cowrie, using generic login information such as username 'root' and password 'password'
+
 If it works properly, it should act as if you actually connected to a terminal. Type some test commands and then exit the session. You may then check the logs, and if you're going to analyze the logs or share them, remember to remove your own information from the logs.
+
+If everything checks out, exit the session and leave Cowrie running to collect attempts passively over the next few days at least.
 
