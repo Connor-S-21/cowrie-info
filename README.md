@@ -10,7 +10,8 @@ I highly recommend you only use a virtual private server to keep the attackers a
 Use [SSH keys](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server), [fail2ban](https://github.com/fail2ban/fail2ban), and/or use SSH over [Tailscale](https://tailscale.com/) to reduce or eliminate the chances of attackers breaking into your real server.
 
 ### DO NOT RUN DOWNLOADED FILES ON YOUR REAL SYSTEM
-**Downloaded files located in `var/lib/cowrie/downloads/` within your Cowrie folder are malware that attackers have attempted to download onto your system.** 
+**Downloaded files located in `var/lib/cowrie/downloads/` within your Cowrie folder are malware that attackers have attempted to download onto your system.**
+
 Only upload these files to dedicated malware analysis services such as [VirusTotal](https://www.virustotal.com/gui/home/upload), [Tria.ge](https://tria.ge/) (account required, but it gives you the most information), or use the [Virustotal Integration](https://docs.cowrie.org/en/latest/virustotal/README.html) (keep in mind, if you auto deny outbound connections, you'll have to analyze the malware manually, because the integration will be blocked by the firewall.)
 
 To safely analyze the malware, send it straight to malware analysis through APIs or download them onto a virtual machine and upload them via the web interfaces manually. 
