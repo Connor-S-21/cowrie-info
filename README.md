@@ -18,7 +18,7 @@ To safely analyze the malware, send it to malware analysis through APIs or downl
 
 Finally, read the server provider's terms of use or email support to make sure running honeypots such as Cowrie are permitted on their servers.
 
-# Setup
+# Preparation
 
 Prerequisates 
 - A Linux Virtual Private Server OR an internet facing server you run yourself (not recommended!) running a supported distribution such as Ubuntu Server
@@ -26,7 +26,7 @@ Prerequisates
 - SSH Client, such as [Putty](https://putty.org/index.html) or your terminal
 - SFTP Client, such as [WinSCP](https://winscp.net/eng/download.php) or [Filezilla](https://filezilla-project.org/)
 
-- Setup
+# Setup
 - SSH into your server
 - Create an admin user account for yourself if it doesn't exist
 - Update the system
