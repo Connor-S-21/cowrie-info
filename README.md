@@ -43,4 +43,8 @@ To test if it's working properly, you can attempt to SSH into your server using 
 If it works properly, it should act as if you actually connected to a terminal. Type some test commands and then exit the session. You may then check the logs, and if you're going to analyze the logs or share them, remember to remove your own information from the logs.
 
 If everything checks out, exit the session and leave Cowrie running to collect attempts passively over the next few days at least.
-
+# Collecting logs
+Connect to your server via SFTP using your client of choice.
+SFTP uses the same port and user credentials as SSH.
+Once you have access to the file system, navigate to the Cowrie installation folder and head to (FILE LOCATION HERE)
+Cowrie generates two versions of each log file, each the same data but in different formats, .log (essentially a .txt file) and .json
