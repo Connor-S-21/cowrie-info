@@ -54,7 +54,7 @@ If everything checks out, exit the session and leave Cowrie running to collect a
 - If you want to combine all the log files into one for easier analysis, use the command 'cat cowrie.lo* > whatever_you_want.log'
 - If you need the .json version of the logs instead 'cat cowrie.lo* > whatever_you_want.jso*'
 - You can then use your SFTP client to download the combined logs if desired.
-- Or
+Or
 - You may setup a supported log aggregator as detailed in the Cowrie documentation.
 
 # Analyzing Logs
