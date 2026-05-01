@@ -178,5 +178,5 @@ Oftentimes the IPs used are part of botnets, meaning there's a very high chance 
 - [Logknife](https://github.com/natesales/logknife) is another program I used, unlike Redactinator it generates fake IPs that are consistent, so you can search through and use the fake IP as if it were a real one to correlate different login attempts and commands with each other.
 - Download the binary (I used Windows for this)
 - Open a terminal within the directory
-- .\logknife.exe `path-to-log`
+- `.\logknife.exe path-to-log > changeme.log OR changeme.json` format depends on input file
 - Depending on the size of your file, it may take a while
