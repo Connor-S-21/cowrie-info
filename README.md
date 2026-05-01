@@ -118,9 +118,7 @@ jq is a command line .json processor.
 # Note about using jq
 These jq commands seem to successfully identity what appears the most, and usually the count is correct. However, verifying the results by manually searching with Notepad++ I've noticed some variance, like one jq result printing 285 hits versus Notepad++ reporting 309 matches.
 
-I can't figure out what is causing the differences, for the most accurate data it is best to use jq and verify using Notepad++, or use another solution for counting results. 
-
-If you have an idea for a fix please make a pull request.
+This may be due to capitalization differences.
 
 # Using Longitudal Analysis
 [Longitudal Analysis Cowrie](https://github.com/deroux/longitudinal-analysis-cowrie) is another Github program for analyzing Cowrie logs. 
