@@ -166,4 +166,17 @@ To place the files manually into VirusTotal
 
 I highly recommend you do at least one method if you're comfortable and able to do so safely, as uploading the malware can help others dealing with the same.
 
+# Note on Sharing Logs
+If you want to share your logs publicly, it's important to remove any IPs the attackers used. 
+Oftentimes the IPs used are part of botnets, meaning there's a very high chance at least some of the IPs you have collected belong to innocent users that have been infected or fallen for a scam somehow.
+
+# IP Redaction
+### Simplest Option
+- The easiest option to use is [Redactinator](https://redactinator.com/)
+- Runs on Windows, easy to use. However, it replaces the IPs completely, which can make it difficult or impossible to correleate different login attempts, commands, etc. to the same IP.
+### Best option 
+- [Logknife](https://github.com/natesales/logknife) is another program I used, unlike Redactinator it generates fake IPs that are consistent, so you can search through and use the fake IP as if it were a real one to correlate different login attempts and commands with each other.
+- Download the binary (I used Windows for this)
+- Open a terminal within the directory
+- .\logknife.exe `path-to-log`
 
