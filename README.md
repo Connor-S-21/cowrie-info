@@ -179,4 +179,4 @@ Oftentimes the IPs used are part of botnets, meaning there's a very high chance 
 - Download the binary (I used Windows for this)
 - Open a terminal within the directory
 - .\logknife.exe `path-to-log`
-
+- Depending on the size of your file, it may take a while
