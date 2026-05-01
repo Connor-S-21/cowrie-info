@@ -116,7 +116,7 @@ jq is a command line .json processor.
 - jq -r 'select(.eventid == "cowrie.login.failed" or .eventid == "cowrie.login.success") | "\(.username):\(.password)"' cowrie.json* | sort | uniq -c | sort -nr | head -n 10
 
 # Note about using jq
-jq is case sensitive. root:password is different to root:Password in the results. Keep that in mind.
+jq is case sensitive. root:password is different to root:Password in the results.
 
 # Using Longitudal Analysis
 [Longitudal Analysis Cowrie](https://github.com/deroux/longitudinal-analysis-cowrie) is another Github program for analyzing Cowrie logs. 
