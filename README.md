@@ -1,4 +1,3 @@
-add table of contents
 # Cowrie
 [Cowrie](https://github.com/cowrie/cowrie) is a honeypot, meaning it's a program that pretends to be a vulnerable SSH server in order to attract attackers/automated bots. It's great for learning about attacker behaviors or patterns because it logs every action and even captures anything they attempt to install onto your 'file system'.
 
@@ -31,8 +30,10 @@ Prerequisates
 - Create an admin user account for yourself if it doesn't exist
 - Update the system
 - Enable the firewall, either locally (UFW or Iptables) or through the server provider's firewall (safer in case the server is somehow compromised, the attacker can't change the provider sided firewall)
-- ADD FIREWALL RULES HERE
-- INSERT STEPS TO CHANGE PORT
+- Allow: port 22 to allow attackers, allow your own IP to access your real SSH port, but if your IP changes you will be locked out and need to change the rule versus the provider's SSH GUI, or allow your real firewall port to all IPs and make sure you use proper authentication
+- Allow: port 80 and 443 for basic functionality like downloading updates
+- Use these rules for outbound traffic to maximize safety in case you suffer a breach: accept 53, 80, 443, deny all else outbound by default
+- [Tutorial for changing your SSH port from 22 to something else](https://www.interserver.net/tips/kb/how-to-change-the-ssh-port-in-ubuntu-24-04-ssh-sockets/#:~:text=Instead%20of%20editing%20the%20main,your%20current%20terminal%20window%20yet.)
 - [Follow these steps to install Cowrie](https://docs.cowrie.org/en/latest/INSTALL.html)
 - It is highly recommended to follow step 7 to change Cowrie's port to 22
 
@@ -125,5 +126,42 @@ If you have an idea for a fix please make a pull request.
 I have not used it because I don't need the complex charts and data it provides, but it seems like another good option if you have a massive amount of log data, want more in depth charts and stats, or are running multiple Cowrie instances at once. 
 
 If you use this it is not necessary to compile all of your .json files into one because it reads multiple.
+
+# Analyzing Downloaded Malware
+## Be extremely careful when attempting this.
+
+Remember that this is real malware, and if you run it on accident on your real system it can have catastrophic effects. 
+
+If you're not comfortable with it or you don't feel confident you know what you're doing, it's best to leave this feature alone, or only set up the VirusTotal API.
+
+# Virustotal API
+
+[Cowrie has a built in VirusTotal integration](https://docs.cowrie.org/en/latest/virustotal/README.html)
+
+### Remember that the VirusTotal API won't work if you set up strict outbound rules for your firewall. I don't believe there is a convienent way to whitelist their API endpoint.
+
+# VirusTotal Manual Method
+
+If you don't want to use the API, you may upload the hashes or files themselves manually
+- File hashes are automatically calcuated by Cowrie and used to rename the downloaded malware files.
+- Navigate to `var/lib/cowrie/downloads/` within Cowrie
+- Copy the hash values from your terminal and paste them into VirusTotal
+- Check results
+
+To place the files manually into VirusTotal
+- Password zip all files within the downloads folder using your preferred method
+- Create a Windows virtual machine (most of the malware is designed for Linux, but not all. Windows is still safer to prevent accidents)
+- SFTP to the server via the virtual machine and download the .zip file, open it, carefully upload it via the VirusTotal GUI
+- Check results, delete files from VM
+
+# Tria.ge Manual Method
+- This gives you the best look at what the malware is actually doing, even letting you interact with it safely if needed.
+- Password zip all files within the downloads folder using your preferred method
+- Create a Windows virtual machine (most of the malware is designed for Linux, but not all. Windows is still safer to prevent accidents)
+- SFTP to the server via the virtual machine and upload your .zip file to the tria.ge gui (You can extract it and upload individual files if you'd like)
+- Let it run and check the results
+- Example reports are in the repo .zip
+
+I highly recommend you do at least one method if you're comfortable and able to do so safely, as uploading the malware can help others dealing with the same.
 
 
