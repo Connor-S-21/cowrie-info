@@ -48,3 +48,74 @@ Connect to your server via SFTP using your client of choice.
 SFTP uses the same port and user credentials as SSH.
 Once you have access to the file system, navigate to the Cowrie installation folder and head to (FILE LOCATION HERE)
 Cowrie generates two versions of each log file, each the same data but in different formats, .log (essentially a .txt file) and .json
+If you want to combine all the log files into one for easier analysis, use the command 'cat cowrie.lo* > whatever_you_want.log'
+If you need the .json version of the logs instead 'cat cowrie.lo* > whatever_you_want.jso*'
+You can then use your SFTP client to download the combined logs if desired.
+Or
+You may setup a supported log aggregator as detailed in the Cowrie documentation.
+
+# Analyzing Logs
+If you choose to not run a log aggregator like I did not, you have several options to view the log information.
+
+# Manually using Notepad++
+### View a list of username + password attempts
+Open your Cowrie.log in Notepad++
+Hit ctrl F or Search > Find in the top menu
+Paste `login attempt` in the search prompt
+Hit 'Find all in current document'
+This will create a list with every result from your log that you can scroll through and read at your leisure.
+Format: "[IP_HERE] login attempt [b'Attempted Username'/b'Attempted Password'] succeeded/failed"
+
+### Count instances of username/password
+Open your Cowrie.json in Notepad++
+Hit ctrl F or Search > Find in the top menu
+Paste `"username":"YOUR_USERNAME"` in the search prompt, replacing YOUR_USERNAME with the username you want to count
+Hit `Count` in the search window
+
+To count occurances of a password
+do the same as above, but paste `"password":"YOUR_PASSWORD"` with the password you want, replacing YOUR_PASSWORD with the password you want to count
+Hit `Count` in the search window
+
+### Viewing Attempted Commands
+Open your Cowrie.log in Notepad++
+Hit ctrl F or Search > Find in the top menu
+Paste `CMD` in the search prompt
+Hit 'Find all in current document'
+
+Using Notepad++ is ideal if you just want to scroll through but it is very inefficient for collecting actual statistics.
+
+# Using Cowrie IoC Analyzer
+[Cowrie IoC Analyzer](https://github.com/rmcglamery/cowrie-ioc-analyzer) is a small Python program you can use to easily parse Cowrie logs locally.
+There are installation and use instructions on the repo. It's easiest to install it directly on your Cowrie server. 
+Make sure you have Pyton installed. `python --version`
+If it returns an error, install Python
+`sudo apt install python3`
+Note: when using the program, give it the full path to the Cowrie log file, not just the directory.
+Ensure you give it your combined .json log for the most accurate data.
+You'll likely want to use the option to export to a .txt file so you can read it in a text editor instead of a terminal.
+However, it does not give specific numbers in terms of attempts of specific usernames or passwords and it can become very long.
+
+# Using jq
+jq is a command line .json processor.
+It's easiest to run it on your Cowrie server.
+`sudo apt install jq`
+Once installed, navigate to your cowrie log directory and run these commands:
+### jq usernames
+`jq -r 'select(.eventid == "cowrie.login.failed" or .eventid == "cowrie.login.success") | .username' COWRIE_JSON_NAME* | sort | uniq -c | sort -nr | head -n 10 > changeme.txt` will give you the 10 most commonly attempted usernames. Edit the '10' at the end to extend the list, or delete the entire head command to list everything.
+Make sure to replace 'cowrie_json_name' with your cowrie log file name, preferably the combined log file, and change `changeme.txt` to whatever filename you want to contain your results. These directions apply to all subsequent jq commands.
+### jq passwords
+jq -r 'select(.eventid == "cowrie.login.failed" or .eventid == "cowrie.login.success") | .password' COWRIE_JSON_NAME* | sort | uniq -c | sort -nr | head -n 10
+### jq commands
+jq -r 'select(.eventid == "cowrie.command.input") | .input' cowrie.json* | sort | uniq -c | sort -nr | head -n 10
+### jq username/password combinations
+jq -r 'select(.eventid == "cowrie.login.failed" or .eventid == "cowrie.login.success") | "\(.username):\(.password)"' cowrie.json* | sort | uniq -c | sort -nr | head -n 10
+
+# Note about using jq
+These jq commands seem to successfully identity what appears the most, and usually the count is correct. However, verifying the results by manually searching with Notepad++ I've noticed some variance, like one jq result printing 285 hits versus Notepad++ reporting 309 matches.
+I can't figure out what is causing the differences, for the most accurate data it is best to use jq and verify using Notepad++, or use another solution for counting results. 
+If you have an idea for a fix please make a pull request.
+
+# Using Longitudal Analysis
+[Longitudal Analysis Cowrie](https://github.com/deroux/longitudinal-analysis-cowrie) is another Github program for analyzing Cowrie logs. I have not used it because I don't need the complex charts and data it provides, but it seems like another good option if you have a massive amount of log data, want more in depth charts and stats, or are running multiple Cowrie instances at once. If you use this it is not necessary to compile all of your .json files into one because it reads multiple.
+
+
