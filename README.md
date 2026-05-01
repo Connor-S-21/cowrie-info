@@ -99,25 +99,31 @@ Using Notepad++ is ideal if you just want to scroll through but it is very ineff
 
 # Using jq
 jq is a command line .json processor.
-It's easiest to run it on your Cowrie server.
-`sudo apt install jq`
-Once installed, navigate to your cowrie log directory and run these commands:
+- It's easiest to run it on your Cowrie server.
+- `sudo apt install jq`
+- Once installed, navigate to your cowrie log directory and run these commands:
 ### jq usernames
-`jq -r 'select(.eventid == "cowrie.login.failed" or .eventid == "cowrie.login.success") | .username' COWRIE_JSON_NAME* | sort | uniq -c | sort -nr | head -n 10 > changeme.txt` will give you the 10 most commonly attempted usernames. Edit the '10' at the end to extend the list, or delete the entire head command to list everything.
-Make sure to replace 'cowrie_json_name' with your cowrie log file name, preferably the combined log file, and change `changeme.txt` to whatever filename you want to contain your results. These directions apply to all subsequent jq commands.
+- `jq -r 'select(.eventid == "cowrie.login.failed" or .eventid == "cowrie.login.success") | .username' COWRIE_JSON_NAME* | sort | uniq -c | sort -nr | head -n 10 > changeme.txt` will give you the 10 most commonly attempted usernames. Edit the '10' at the end to extend the list, or delete the entire head command to list everything.
+- Make sure to replace 'cowrie_json_name' with your cowrie log file name, preferably the combined log file, and change `changeme.txt` to whatever filename you want to contain your results. These directions apply to all subsequent jq commands.
 ### jq passwords
-jq -r 'select(.eventid == "cowrie.login.failed" or .eventid == "cowrie.login.success") | .password' COWRIE_JSON_NAME* | sort | uniq -c | sort -nr | head -n 10
+- jq -r 'select(.eventid == "cowrie.login.failed" or .eventid == "cowrie.login.success") | .password' COWRIE_JSON_NAME* | sort | uniq -c | sort -nr | head -n 10
 ### jq commands
-jq -r 'select(.eventid == "cowrie.command.input") | .input' cowrie.json* | sort | uniq -c | sort -nr | head -n 10
+- jq -r 'select(.eventid == "cowrie.command.input") | .input' cowrie.json* | sort | uniq -c | sort -nr | head -n 10
 ### jq username/password combinations
-jq -r 'select(.eventid == "cowrie.login.failed" or .eventid == "cowrie.login.success") | "\(.username):\(.password)"' cowrie.json* | sort | uniq -c | sort -nr | head -n 10
+- jq -r 'select(.eventid == "cowrie.login.failed" or .eventid == "cowrie.login.success") | "\(.username):\(.password)"' cowrie.json* | sort | uniq -c | sort -nr | head -n 10
 
 # Note about using jq
 These jq commands seem to successfully identity what appears the most, and usually the count is correct. However, verifying the results by manually searching with Notepad++ I've noticed some variance, like one jq result printing 285 hits versus Notepad++ reporting 309 matches.
+
 I can't figure out what is causing the differences, for the most accurate data it is best to use jq and verify using Notepad++, or use another solution for counting results. 
+
 If you have an idea for a fix please make a pull request.
 
 # Using Longitudal Analysis
-[Longitudal Analysis Cowrie](https://github.com/deroux/longitudinal-analysis-cowrie) is another Github program for analyzing Cowrie logs. I have not used it because I don't need the complex charts and data it provides, but it seems like another good option if you have a massive amount of log data, want more in depth charts and stats, or are running multiple Cowrie instances at once. If you use this it is not necessary to compile all of your .json files into one because it reads multiple.
+[Longitudal Analysis Cowrie](https://github.com/deroux/longitudinal-analysis-cowrie) is another Github program for analyzing Cowrie logs. 
+
+I have not used it because I don't need the complex charts and data it provides, but it seems like another good option if you have a massive amount of log data, want more in depth charts and stats, or are running multiple Cowrie instances at once. 
+
+If you use this it is not necessary to compile all of your .json files into one because it reads multiple.
 
 
